@@ -1,0 +1,95 @@
+body {
+    background-color: rgb(206, 206, 206);
+}
+
+header {
+    height: 60px;
+    background: red;
+    margin: 20px 20px 0 20px;
+}
+
+#wrapper {
+    display: flex;
+    height:80vh;
+    margin: 0 20px;
+}
+
+/* Left & right panes */
+#wrapper > div {
+    flex: 1;
+    border: solid rgb(179, 2, 2);
+    border-width: 10px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+#left-pane {
+    /* background-color: yellow; */
+}
+
+#right-pane {
+    /* background-color: rgb(72, 255, 0); */
+    font-family: Menlo, Lucida Console, monospace;
+}
+
+/* Cursor Animation */
+@keyframes cursor-blink {
+    0% {
+        background: rgba(207, 89, 89, 0);
+    }
+}
+
+/* .char {
+    position: relative;
+}
+
+.precursor::after {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 20px;
+    background:rgb(179, 2, 2);
+    animation: cursor-blink 1s steps(2) infinite;
+} */
+
+footer {
+    height: 60px;
+    background-color: azure;
+    margin: 0 20px 20px 20px;
+}
+
+#command-overlay {
+    position: fixed;
+    bottom: 0;
+    height: 15px;
+    padding: 10px 20px;
+    width: 100%;
+    visibility: hidden;
+    display: flex;
+    align-content: center;
+    
+    background:rgb(49, 48, 48);
+    color:rgb(206, 206, 206);
+    font-family: Menlo, monospace;
+}
+
+#command-overlay > label {
+    margin-right: 7px;
+}
+
+#command-overlay > * {
+    font-size: 13px;
+    align-self: center;
+    margin: 0;
+    padding: 0;
+    /* background:rgba(248, 84, 84, .5); */
+}
+
+#command-input-area::after {
+    content: "";
+    width: 5px;
+    height: 10px;
+    display: inline-block;
+    background: rgb(248, 84, 84);
+    animation: cursor-blink 1s steps(2) infinite;
+}
