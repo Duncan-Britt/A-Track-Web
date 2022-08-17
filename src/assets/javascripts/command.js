@@ -1,6 +1,7 @@
 'use strict';
 
 import { Dom } from "./dom.js";
+import { Assignments } from "./assignments.js";
 
 function split_input(text) {
   text = text.trim();
@@ -47,12 +48,19 @@ function color(color, text) {
 export function command_handler(input_text) {
   const [ error, command, ...args ] = split_input(input_text);
   if (error) {
-    console.log(error);
-    
     Dom.update({ cli_feedback: error });
-  } else {
-    Dom.update({ clear_feedback: true });
+    return;
   }
 
-  console.log(command, args);
+  Dom.update({ clear_feedback: true });
+
+  if (/^\s*$/.test(input_text)) {
+    return;
+  }
+
+  if (Assignments[command]) {
+    Assignments[command](args);
+  } else {
+    Dom.update({ cli_feedback: color('red', 'Unkown command: ') + command });
+  }
 }
