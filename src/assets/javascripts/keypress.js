@@ -47,7 +47,7 @@ const Input_Handler = {
           
           this.command_buffer = '';          
           Dom.update({
-            command_buffer: this.command_buffer,
+            command_buffer: this.command_buffer,	    
           });
         }
 

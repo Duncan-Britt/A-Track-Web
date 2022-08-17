@@ -61,24 +61,34 @@ footer {
 #command-overlay {
     position: fixed;
     bottom: 0;
-    height: 15px;
+    height: auto;
     padding: 10px 20px;
     width: 100%;
     visibility: hidden;
     display: flex;
-    align-content: center;
+    flex-direction: column;
+    /* align-content: center; */
     
     background:rgb(49, 48, 48);
     color:rgb(206, 206, 206);
     font-family: Menlo, monospace;
+    font-size: 13px;
 }
 
-#command-overlay > label {
+#cli-feedback {
+    display: none;
+}
+
+#command-input-row {
+   margin-top: 4px;
+   display: flex;
+}
+
+#command-input-row > label {
     margin-right: 7px;
 }
 
-#command-overlay > * {
-    font-size: 13px;
+#command-input-row > * {    
     align-self: center;
     margin: 0;
     padding: 0;
