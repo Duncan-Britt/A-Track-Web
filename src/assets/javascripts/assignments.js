@@ -1,45 +1,74 @@
 'use strict'
 
-export const Assignments = {
-  list(args) {
-    console.log(args);
-  }
-};
-
-const mock_data = [
-  { 
-    id: 0,
-    title: 'Ch 2 Hw', 
-    description: 'Study U-Sub',    
-    is_complete: false,
-    class_name: 'Calc 1',
-    due_date: '09-20-2022',
-    available_date: '08-20-2022',
-  },
-  { 
-    id: 1,
-    title: 'Ch 3 Hw', 
-    description: 'Study Integrals',    
-    is_complete: false,
-    class_name: 'Calc 1',
-    due_date: '09-25-2022',
-    available_date: '09-10-2022',
-  },
-]
+import { DateTime } from "./lib/luxon.js";
 
 class Assignment {
-  constructor(id, completion_status, title, description, class_name, due_date, available_date) {
+  constructor(id, title, description, is_complete, class_name, due_date, available_date, subtasks) {
     this.id = id; 
-    this.completion_status = completion_status; 
+    this.is_complete = is_complete; 
     this.title = title;
     this.description = description;
     this.class_name = class_name;
     this.due_date = due_date;
     this.available_date = available_date;
+    this.subtasks = subtasks;
+  }
+
+  static create({ id, title, description, is_complete, class_name, due_date, available_date }) {
+    return new Assignment(id, title, description, is_complete, class_name, due_date, available_date, new AssignmentsType());
+  }
+
+  static _create_recursive({ id, title, description, is_complete, class_name, due_date, available_date, subtasks }) {
+    const res_subtasks = new AssignmentsType();
+    res_subtasks.init(subtasks);
+    return new Assignment(id, title, description, is_complete, class_name, due_date, available_date, res_subtasks);
   }
 }
 
-const json = JSON.stringify(mock_data);
-console.log(json);
-const data = JSON.parse(json);
-console.log(data);
+class AssignmentsType extends Array {
+  constructor(...args) {
+    if (args.every(arg => arg instanceof Assignment)) {
+      super(...args);
+    } else {
+      super();
+    }
+  }
+
+  init(data) {
+    data.forEach(assignment_info => {
+      assignment_info.due_date = DateTime.fromISO(assignment_info.due_date, { zone: 'utc' });
+      assignment_info.available_date = DateTime.fromISO(assignment_info.available_date, { zone: 'utc' });
+      this.push(Assignment._create_recursive(assignment_info));
+    });
+
+    this.sort();
+  }
+
+  sort() {
+    Array.prototype.sort.call(this, ((a, b) => {
+      if (a.due_date < b.due_date) return -1;
+      if (a.due_date > b.due_date) return 1;
+      if (a.due_date == b.due_date) {
+	if (!a.is_complete && b.is_complete) return -1;
+	if (a.is_complete && !b.is_complete) return 1;
+	return 0;
+      }
+    }));
+  }
+
+  get(options) {
+    
+  }
+}
+
+// Object.defineProperties(AssignmentsType, {
+//   prototype: {
+//     value: Object.create(Array.prototype),
+//     writable: true,
+//   },
+// });
+
+// AssignmentsType.prototype = Object.create(Array.prototype);
+// AssignmentsType.prototype.constructor = AssignmentsType;
+
+export const Assignments = new AssignmentsType();

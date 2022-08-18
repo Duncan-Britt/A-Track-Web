@@ -1,7 +1,7 @@
 'use strict';
 
 import { Dom } from "./dom.js";
-import { Assignments } from "./assignments.js";
+// import { Assignments } from "./assignments.js";
 
 function split_input(text) {
   text = text.trim();
@@ -45,6 +45,33 @@ function color(color, text) {
   return '<span style="color:' + color + ';">' + text + '</span>';
 }
 
+// function parse_list_args(args) {
+//   const options = {};
+//   args.forEach(arg => {
+//     let downcased = arg.toLowerCase();
+//     if (downcased == "past") {
+//       options.list_past = true;
+//     } else if (downcased == "week") {
+//       options.date_limit = one_week_from_today();
+//     } else if (is_date(arg) {
+//       options.date_limit = ???
+//     }
+//   });
+//   return options;
+// }
+
+const Commands = {
+  list(args) {
+    // const options = parse_list_args(args);
+    // const [ assignments, error ] = Assignments.get(options);
+    // if (error) {
+    //   Dom.update({ cli_feedback: error });
+    //   return;
+    // }
+    // Dom.update({ assignments });
+  }
+}
+
 export function command_handler(input_text) {
   const [ error, command, ...args ] = split_input(input_text);
   if (error) {
@@ -58,8 +85,8 @@ export function command_handler(input_text) {
     return;
   }
 
-  if (Assignments[command]) {
-    Assignments[command](args);
+  if (Commands.hasOwnProperty(command)) {
+    Commands[command](args);
   } else {
     Dom.update({ cli_feedback: color('red', 'Unkown command: ') + command });
   }
