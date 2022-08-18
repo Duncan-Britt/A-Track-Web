@@ -1,7 +1,9 @@
 'use strict';
 
 import { Dom } from "./dom.js";
-// import { Assignments } from "./assignments.js";
+import { Assignments } from "./assignments.js";
+import { DateTime, parse_date } from "./date.js";
+import { color } from "./color.js";
 
 function split_input(text) {
   text = text.trim();
@@ -41,33 +43,74 @@ function split_input(text) {
   return chunks;
 }
 
-function color(color, text) {
-  return '<span style="color:' + color + ';">' + text + '</span>';
-}
+function parse_list_args(args) {
+  const options = {
+    desc: false,
+    past: false,
+    done: true,
+    todo: true,
+    unavailable: true,
+    courses: [],
+    limit_date: null,
+    limit: Infinity,
+    offset: 0,
+  };
 
-// function parse_list_args(args) {
-//   const options = {};
-//   args.forEach(arg => {
-//     let downcased = arg.toLowerCase();
-//     if (downcased == "past") {
-//       options.list_past = true;
-//     } else if (downcased == "week") {
-//       options.date_limit = one_week_from_today();
-//     } else if (is_date(arg) {
-//       options.date_limit = ???
-//     }
-//   });
-//   return options;
-// }
+  const unrecognized_args = [];
+
+  for (let i = 0; i != args.length; i++) {
+    const arg = args[i];
+    const downcased = arg.toLowerCase();
+    
+    let [ date, error ] = parse_date(arg);
+    if (error) return [ null, error ];
+
+    if (date) {
+      options.limit_date = date;
+    } else if (/^\d+$/.test(arg)) { // if arg is number
+      options.limit = parseInt(arg, 10);
+    } else if (/^\-.+$/.test(arg)) { // if arg is a course name
+      options.courses.push(arg.slice(1));
+    } else {
+
+      switch (downcased) {
+      case 'past'     : options.past = true; break;
+      case 'week'     : options.limit_date = DateTime.now().plus({ days: 7 }); break;
+      case 'todo'     : options.done = false; break;
+      case 'done'     : options.todo = false; break;
+      case 'available': options.unavailable = false; break;
+      case 'desc'     : options.desc = true; break;
+      case 'asc'      : options.desc = false; break;
+      case 'offset'   :
+	const offset_amount = args[++i];
+	if (/^\d+$/.test(offset_amount)) // if offset amount is number
+	  options.offset = parseInt(offset_amount, 10);
+	else
+	  return [null, color('red', 'Invalid offset: ') + color('yellow', offset_amount)];
+	break;
+      default:
+	unrecognized_args.push(arg);
+      }
+    } 
+  }
+  
+  return [ options, null, ...unrecognized_args ];
+}
 
 const Commands = {
   list(args) {
-    // const options = parse_list_args(args);
-    // const [ assignments, error ] = Assignments.get(options);
-    // if (error) {
-    //   Dom.update({ cli_feedback: error });
-    //   return;
-    // }
+    const [ options, error, ...unused ] = parse_list_args(args);
+    if (error) {
+      Dom.update({ cli_feedback: error });
+      return;
+    }
+
+    if (unused.length != 0) {
+      Dom.update({ cli_feedback: color('red', 'Unknown args: ') + `${unused.join(', ')} -> ` + color('yellow', 'ignored.') });
+    }
+    const assignments = Assignments.get(options);
+    assignments.pretty_print(); // TESTING
+    console.log(assignments);   // TESTING
     // Dom.update({ assignments });
   }
 }
@@ -85,8 +128,8 @@ export function command_handler(input_text) {
     return;
   }
 
-  if (Commands.hasOwnProperty(command)) {
-    Commands[command](args);
+  if (Commands.hasOwnProperty(command.toLowerCase())) {
+    Commands[command.toLowerCase()](args);
   } else {
     Dom.update({ cli_feedback: color('red', 'Unkown command: ') + command });
   }

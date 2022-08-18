@@ -3,7 +3,7 @@
 import { Dom } from "./dom.js";
 import { keydown_handler, keyup_handler } from "./keypress.js";
 import { Assignments } from "./assignments.js";
-import { DateTime } from "./lib/luxon.js";
+import { DateTime } from "./date.js"; // FOR TESTING
 
 const mock_data = [
    { 
@@ -42,15 +42,15 @@ const json = JSON.stringify(mock_data);
 // console.log(json);
 const data = JSON.parse(json);
 
+// console.log(DateTime.fromISO("2022-05-15"));
+// console.log(DateTime.fromFormat("05-15", "LL-dd"));
+
+// TESTING
 Assignments.init(data);
 console.log(Assignments);
-Assignments.forEach(({ due_date }) => {
-  console.log(due_date.toLocaleString(DateTime.DATE_SHORT));
-});
-
-// var d1 = DateTime.fromISO('2017-04-30');
-// var d2 = DateTime.fromISO('2017-04-01');
-// console.log(d1 > d2);
+// Assignments.forEach(({ due_date }) => {
+//   console.log(due_date.toLocaleString(DateTime.DATE_SHORT));
+// });
 
 document.addEventListener('DOMContentLoaded', () => {
   Dom.init();
