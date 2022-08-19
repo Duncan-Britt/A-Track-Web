@@ -117,8 +117,6 @@ const Input_Handler = {
 export const keydown_handler = Input_Handler.keydown.bind(Input_Handler);
 export const keyup_handler = Input_Handler.keyup.bind(Input_Handler);
 
-// Plan: For commands that cause problems, try using a setTimeout to unpress the keys
-
 // M-q : quit
 // M-w : close tab
 // M-e : nothing
