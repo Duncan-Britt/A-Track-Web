@@ -14,6 +14,10 @@ class Assignment {
     this.subtasks = subtasks;
   }
 
+  get due() {
+    return this.due_date.toLocaleString(DateTime.DATE_SHORT);
+  }
+
   static create({ id, title, description, is_complete, class_name, due_date, available_date }) {
     return new Assignment(id, title, description, is_complete, class_name, due_date, available_date, new AssignmentsType());
   }

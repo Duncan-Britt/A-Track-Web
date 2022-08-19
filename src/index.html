@@ -17,9 +17,9 @@
 	      <script id="recursive-assignments" type="text/x-template">
 		  <ul class="assignment-list hide">
 		      (:~ each Assignments as 'assignment {
-		      <li>
-			  <span class="assignment-id (:~ if show_ids { hidden }:)">(: assignment.id :)</span> (: assignment.title :)
-			  <a href="#" class="expand-link">drop</a>
+		      <li class="assignment-row">
+			  <span class="assignment-id (:~ if show_ids { hidden }:)">(: assignment.id :)</span> (: assignment.title :) (: assignment.class_name :) (: assignment.due :)
+			  <a>complete</a><a>edit</a><a>delete</a> 
 			  (:~ def 'Assignments assignment.subtasks {}:)			  
 			  (:~ partial recursive-assignments {}:)
 		      </li>

@@ -45,10 +45,11 @@ export const Dom = {
   },
 
   bind_left_pane_handlers() {
-    // enable drop down links for subtasks:
-    document.querySelectorAll('.expand-link').forEach(link => {
-      link.addEventListener('click', _ => {
-	link.parentElement.querySelector('.assignment-list').classList.toggle('hide');
+    // enable drop down for subtasks on row click
+    document.querySelectorAll('.assignment-row').forEach(row => {
+      row.addEventListener('click', e => {
+	e.stopPropagation();
+	row.querySelector('.assignment-list').classList.toggle('hide');
       });
     });
   },
