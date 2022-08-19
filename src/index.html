@@ -18,7 +18,7 @@
 		  <ul class="assignment-list hide">
 		      (:~ each Assignments as 'assignment {
 		      <li>
-			  <span class="assignment-id (:~ if show_ids { hidden }:)"docum>(: assignment.id :)</span> (: assignment.title :)
+			  <span class="assignment-id (:~ if show_ids { hidden }:)">(: assignment.id :)</span> (: assignment.title :)
 			  <a href="#" class="expand-link">drop</a>
 			  (:~ def 'Assignments assignment.subtasks {}:)			  
 			  (:~ partial recursive-assignments {}:)

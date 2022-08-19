@@ -9,7 +9,11 @@ export const Dom = {
     this.cli_feedback = document.querySelector('#cli-feedback');
     this.show_ids = localStorage.getItem('show_ids') == 'true' ? true : false;
     this.last_assignments = null;
+    
+    const splice_destination = document.querySelector('#splice-destination');
     Splice.registerPartial('recursive-assignments');
+    const create_left_pane_html_from = Splice.compile(document.querySelector('#template').innerHTML);
+    this.render_left_pane = data => splice_destination.innerHTML = create_left_pane_html_from(data);
   },
 
   update(options) {    
@@ -20,10 +24,10 @@ export const Dom = {
           this.command_buffer.textContent = options.command_buffer;
           break;
         case 'command_mode':
-          this.command_overlay.style.visibility = options[option] ? 'visible' : 'hidden';
+          this.command_overlay.style.visibility = options.command_mode ? 'visible' : 'hidden';
           break;
 	case 'cli_feedback':
-	  this.cli_feedback.innerHTML = options[option];
+	  this.cli_feedback.innerHTML = options.cli_feedback;
 	  this.cli_feedback.style.display = 'block';
 	  break;
 	case 'clear_feedback':
@@ -31,9 +35,9 @@ export const Dom = {
 	  this.cli_feedback.style.display = 'none';	    
 	  break;
 	case 'assignments':
-	  Splice.render({ Assignments: options[option], show_ids: this.show_ids });
+	  this.render_left_pane({ Assignments: options.assignments, show_ids: this.show_ids });
 	  this.bind_left_pane_handlers();
-	  this.last_assignments = options[option];
+	  this.last_assignments = options.assignments;
 	  break;
         }
       }
