@@ -111,8 +111,15 @@ const Commands = {
     const assignments = Assignments.get(options);
     assignments.pretty_print(); // TESTING
     console.log(assignments);   // TESTING
-    // Dom.update({ assignments });
+    Dom.update({ assignments });
   }
+}
+
+Commands['toggle-show-ids'] = function(args) {
+  if (args.length != 0)
+    Dom.update({ cli_feedback: color('red', 'Unknown args: ') + `${args.join(', ')} -> ` + color('yellow', 'ignored.') });
+
+  Dom.toggle_show_ids();
 }
 
 export function command_handler(input_text) {

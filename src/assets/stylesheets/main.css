@@ -103,3 +103,17 @@ footer {
     background: rgb(248, 84, 84);
     animation: cursor-blink 1s steps(2) infinite;
 }
+
+.assignment-list .assignment-list {
+    margin-left: 10px;
+}
+
+.assignment-list .hide {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+
