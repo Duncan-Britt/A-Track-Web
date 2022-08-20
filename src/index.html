@@ -14,22 +14,22 @@
       </header>
       <div id="wrapper">
           <div id="left-pane">
-	      <script id="recursive-assignments" type="text/x-template">
-		  <ul class="assignment-list hide">
-		      (:~ each Assignments as 'assignment {
-		      <li class="assignment-row">
-			  <span class="assignment-id (:~ if show_ids { hidden }:)">(: assignment.id :)</span> (: assignment.title :) (: assignment.class_name :) (: assignment.due :)
-			  <a>complete</a><a>edit</a><a>delete</a> 
-			  (:~ def 'Assignments assignment.subtasks {}:)			  
-			  (:~ partial recursive-assignments {}:)
-		      </li>
-		      }:)
-		  </ul>
-	      </script>
-	      <script id="template" type="text/x-template">
-		  (:~ partial recursive-assignments {}:)
-	      </script>
-	      <div id="splice-destination"></div>
+	      <!-- <script id="recursive-assignments" type="text/x-template">
+		   <ul class="assignment-list hide">
+		   (:~ each Assignments as 'assignment {
+		   <li class="assignment-row">
+		   <span class="assignment-id (:~ if show_ids { hidden }:)">(: assignment.id :)</span> (: assignment.title :) (: assignment.class_name :) (: assignment.due :)
+		   <a>complete</a><a>edit</a><a>delete</a> 
+		   (:~ def 'Assignments assignment.subtasks {}:)			  
+		   (:~ partial recursive-assignments {}:)
+		   </li>
+		   }:)
+		   </ul>
+		   </script>
+		   <script id="template" type="text/x-template">
+		   (:~ partial recursive-assignments {}:)
+		   </script>
+		   <div id="splice-destination"></div> -->	      
           </div>
           <div id="right-pane">
               <span id="pre-text" class="char"></span>

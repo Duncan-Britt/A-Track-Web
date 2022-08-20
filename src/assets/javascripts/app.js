@@ -7,10 +7,10 @@ import { Assignments } from "./assignments.js";
 const mock_data = [
    { 
     id: 2,
-    title: 'Ch 4 Hw', 
+    title: 'Robotics Program', 
     description: 'Study U-Sub',    
     is_complete: false,
-    class_name: 'Calc 1',
+    class_name: 'Computer Architecture',
     due_date: "2022-09-25T09:24:15Z",
     available_date: "2022-09-08T03:00:00Z",
     subtasks: [{ 

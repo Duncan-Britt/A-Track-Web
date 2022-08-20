@@ -19,16 +19,17 @@ header {
     flex: 1;
     border: solid rgb(179, 2, 2);
     border-width: 10px;
-    padding: 10px;
     overflow-y: auto;
 }
 
 #left-pane {
+    overflow-x: auto;
     /* background-color: yellow; */
 }
 
 #right-pane {
     /* background-color: rgb(72, 255, 0); */
+    padding: 10px;
     font-family: Menlo, Lucida Console, monospace;
 }
 
@@ -104,16 +105,21 @@ footer {
     animation: cursor-blink 1s steps(2) infinite;
 }
 
-.assignment-list .assignment-list {
-    margin-left: 10px;
-}
-
-.assignment-list .hide {
-    display: none;
-}
-
 .hidden {
     display: none;
 }
 
+.fields {
+    border-style: solid;
+    border-width: 1px;
+    padding: 4px 0;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background-color: orange;
+}
 
+/* .spacer { */
+/*     background-color: green; */
+/*     padding-left: 10px; */
+/* } */
