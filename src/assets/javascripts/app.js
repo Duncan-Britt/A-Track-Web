@@ -8,7 +8,7 @@ const mock_data = [
    { 
     id: 2,
     title: 'Robotics Program', 
-    description: 'Study U-Sub',    
+    description: 'Use raspberry pi pico',    
     is_complete: false,
     class_name: 'Computer Architecture',
     due_date: "2022-09-25T09:24:15Z",
@@ -16,9 +16,9 @@ const mock_data = [
     subtasks: [{ 
       id: 3,
       title: 'Problem 1', 
-      description: 'Study U-Sub',    
+      description: '',    
       is_complete: false,
-      class_name: 'Calc 1',
+      class_name: 'Computer Architecture',
       due_date: "2022-09-15T09:24:15Z",
       available_date: "2022-09-08T03:00:00Z",
       subtasks: [
@@ -27,7 +27,7 @@ const mock_data = [
 	  title: 'Get Pencil',
 	  description: '',
 	  is_complete: true,
-	  class_name: 'Calc 1',
+	  class_name: 'Computer Architecture',
 	  due_date: "2022-09-15T09:24:15Z",
 	  available_date: "2022-09-08T03:00:00Z",
 	  subtasks: [],
@@ -37,7 +37,7 @@ const mock_data = [
 	  title: 'Get Paper',
 	  description: '',
 	  is_complete: false,
-	  class_name: 'Calc 1',
+	  class_name: 'Computer Architecture',
 	  due_date: "2022-09-15T09:24:15Z",
 	  available_date: "2022-09-08T03:00:00Z",
 	  subtasks: [],

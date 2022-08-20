@@ -31,6 +31,7 @@ header {
     /* background-color: rgb(72, 255, 0); */
     padding: 10px;
     font-family: Menlo, Lucida Console, monospace;
+    display: none;
 }
 
 /* Cursor Animation */
